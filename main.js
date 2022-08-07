@@ -34,7 +34,28 @@ function getWinner(result){
     if (winner.length == 2) return winner[1]
     else return winner[0]
 }
-const playerSelection = 'rock'
-const computerSelection = getComputerChoice()
 
-console.log(getWinner(playRound(playerSelection, computerSelection)))
+function game(n_games){
+    let playerSelection, computerSelection
+    let playerWins = 0
+    let computerWins = 0
+    let ties = 0
+    
+    for (let i = 0; i < n_games; i++){
+        playerSelection = prompt('Write:\na) Rock\nb)Paper\nc)Scissors')
+        computerSelection = getComputerChoice()
+
+        result = playRound(playerSelection, computerSelection)
+        winner = getWinner(result)
+        console.log(result)
+        if (winner == 'Player') playerWins++
+        else if (winner == 'Computer') computerWins++
+        else ties++
+    }
+
+    console.log(`Player won ${playerWins} times\n`)
+    console.log(`Computer won ${computerWins} times\n`)
+    console.log(`There were ${ties} ties\n`)
+}
+
+game(5)
