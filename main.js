@@ -27,7 +27,14 @@ function playRound(playerSelection, computerSelection){
 
     return result
 }
+
+function getWinner(result){
+    let winner = result.split('\n')
+    winner = winner[2].split(': ')
+    if (winner.length == 2) return winner[1]
+    else return winner[0]
+}
 const playerSelection = 'rock'
 const computerSelection = getComputerChoice()
 
-console.log(playRound(playerSelection, computerSelection))
+console.log(getWinner(playRound(playerSelection, computerSelection)))
