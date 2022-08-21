@@ -58,4 +58,3 @@ function game(n_games){
     console.log(`There were ${ties} ties\n`)
 }
 
-game(5)
