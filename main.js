@@ -4,61 +4,59 @@ function getComputerChoice(){
 }
 
 function playRound(playerSelection, computerSelection){
-    let result = `Player selection: ${playerSelection}\n`
-    result += `Computer selection: ${computerSelection}\n`
+    let winner = ''
     
     if (playerSelection == 'paper'){
-        if (computerSelection == 'paper') result += 'Tie!'
-        else if (computerSelection == 'rock') result += 'Winner: Player'
-        else result += 'Winner: Computer'
+        if (computerSelection == 'paper') winner += 'Tie'
+        else if (computerSelection == 'rock') winner += 'Player'
+        else winner += 'Computer'
     }
     else if (playerSelection == 'rock'){
-        if (computerSelection == 'paper') result += 'Winner: Computer'
-        else if (computerSelection == 'rock') result += 'Tie!'
-        else result += 'Winner: Player'
+        if (computerSelection == 'paper') winner += 'Computer'
+        else if (computerSelection == 'rock') winner += 'Tie'
+        else winner += 'Player'
     }
     else if (playerSelection == 'scissors'){
-        if (computerSelection == 'paper') result += 'Winner: Player'
-        else if (computerSelection == 'rock') result += 'Winner: Computer'
-        else result += 'Tie!'
+        if (computerSelection == 'paper') winner += 'Player'
+        else if (computerSelection == 'rock') winner += 'Computer'
+        else winner += 'Tie'
     }
-    else result = ('Error: Invalid choice!')
 
-    return result
-}
-
-function getWinner(result){
-    let winner = result.split('\n')
-    winner = winner[2].split(': ')
-    if (winner.length == 2) return winner[1]
-    else return winner[0]
+    return winner
 }
 
 function game(choice){
-    let playerSelection, computerSelection
+    let playerSelection, computerSelection, result
     playerSelection = choice
     computerSelection = getComputerChoice()
 
-    result = playRound(playerSelection, computerSelection)
-    winner = getWinner(result)
-    console.log(result)
-    console.log(winner)
-    /*if (winner == 'Player') playerWins++
-    else if (winner == 'Computer') computerWins++
-    else ties++
+    winner = playRound(playerSelection, computerSelection)
     
-
-    console.log(`Player won ${playerWins} times\n`)
-    console.log(`Computer won ${computerWins} times\n`)
-    console.log(`There were ${ties} ties\n`)*/
+    result = [playerSelection, computerSelection, winner]
+    
+    return result
 }
 
 buttons = document.querySelectorAll('.buttons > button')
+scoreboard = document.querySelector('.scoreboard')
+message = document.querySelector('.message')
 
 buttons.forEach(button => {
     button.addEventListener('click', (e) => {
         choice = e.srcElement.parentElement.id.slice(0,-4)
-        game(choice)   
+        result = game(choice)   
+        if (result[2] == 'Player') playerWins++
+        else if (result[2] == 'Computer') computerWins++
+        
+        scoreboard.innerHTML = `<p>Scores</p>
+        <p>Player: ${playerWins}</p>
+        <p>Computer: ${computerWins}</p>`
+        message.innerText = `Winner: ${result[2]}`
+        
     })
 
 });
+
+let playerWins = 0
+let computerWins = 0
+
