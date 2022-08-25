@@ -30,11 +30,13 @@ button:hover{
     display: flex;
     justify-content: space-around;
     font-size: 1.3em;
+    margin-bottom: 50px;
 }
 
 .selections{
     display: flex;
     justify-content: space-around;
+    text-align: center;
 }
 
 .message{

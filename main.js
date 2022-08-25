@@ -4,7 +4,6 @@ function getComputerChoice(){
 }
 
 function playRound(playerSelection, computerSelection){
-    playerSelection = playerSelection.toLowerCase()
     let result = `Player selection: ${playerSelection}\n`
     result += `Computer selection: ${computerSelection}\n`
     
@@ -35,26 +34,31 @@ function getWinner(result){
     else return winner[0]
 }
 
-function game(n_games){
+function game(choice){
     let playerSelection, computerSelection
-    let playerWins = 0
-    let computerWins = 0
-    let ties = 0
-    
-    for (let i = 0; i < n_games; i++){
-        playerSelection = prompt('Write:\na) Rock\nb)Paper\nc)Scissors')
-        computerSelection = getComputerChoice()
+    playerSelection = choice
+    computerSelection = getComputerChoice()
 
-        result = playRound(playerSelection, computerSelection)
-        winner = getWinner(result)
-        console.log(result)
-        if (winner == 'Player') playerWins++
-        else if (winner == 'Computer') computerWins++
-        else ties++
-    }
+    result = playRound(playerSelection, computerSelection)
+    winner = getWinner(result)
+    console.log(result)
+    console.log(winner)
+    /*if (winner == 'Player') playerWins++
+    else if (winner == 'Computer') computerWins++
+    else ties++
+    
 
     console.log(`Player won ${playerWins} times\n`)
     console.log(`Computer won ${computerWins} times\n`)
-    console.log(`There were ${ties} ties\n`)
+    console.log(`There were ${ties} ties\n`)*/
 }
 
+buttons = document.querySelectorAll('.buttons > button')
+
+buttons.forEach(button => {
+    button.addEventListener('click', (e) => {
+        choice = e.srcElement.parentElement.id.slice(0,-4)
+        game(choice)   
+    })
+
+});
